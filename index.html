@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
 <title>For You 💌</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,23 +10,61 @@
 <style>
   :root{
     --accent:#7c5cff;
-    --deep:#4a35b8;
-    --ink:#2e2a52;
-    --muted:#7a7aa0;
-    --soft-blue:#b8a8ff;
+    --deep:#c8a8ff;
+    --ink:#e8e0ff;
+    --muted:#b8a8d8;
+    --soft-blue:#7fb3ff;
     --soft-purple:#c8bcff;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{min-height:100%;}
+  html,body{
+    min-height:100%;
+    touch-action: manipulation;
+    -ms-touch-action: manipulation;
+  }
+  html{
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
   body{
     font-family:'Quicksand',system-ui,-apple-system,sans-serif;
     color:var(--ink);
-    background:linear-gradient(165deg,#f3e8ff 0%,#e0d0ff 45%,#d6c4ff 100%);
+    background:linear-gradient(165deg,#0f0520 0%,#1a0b2e 45%,#2d1b4e 100%);
     background-attachment:fixed;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
   .hidden{display:none !important;}
+
+  /* ============================================================
+     🔵 BLUE SIDE BORDERS
+     ============================================================ */
+  .side-border{
+    position:fixed;
+    top:0; bottom:0;
+    width:10px;
+    z-index:2000;
+    pointer-events:none;
+    background:linear-gradient(180deg,#3b82f6 0%,#60a5fa 50%,#3b82f6 100%);
+    box-shadow:0 0 20px rgba(59,130,246,.8), inset 0 0 8px rgba(147,197,253,.8);
+    animation:borderGlow 3s ease-in-out infinite;
+  }
+  .side-border.left{
+    left:0;
+    border-right:1px solid rgba(147,197,253,.6);
+  }
+  .side-border.right{
+    right:0;
+    border-left:1px solid rgba(147,197,253,.6);
+  }
+  @keyframes borderGlow{
+    0%,100%{ opacity:.85; }
+    50%    { opacity:1; }
+  }
+  @media (max-width:600px){
+    .side-border{ width:6px; }
+  }
 
   /* ============================================================
      🌌 DECORATIVE BACKGROUND LAYERS
@@ -37,19 +75,19 @@
   }
   .orb{
     position:absolute; border-radius:50%;
-    filter:blur(80px); opacity:.6;
+    filter:blur(80px); opacity:.4;
     animation:orbDrift 24s ease-in-out infinite;
   }
   .orb:nth-child(1){
-    width:440px; height:440px; background:#c8a8ff;
+    width:440px; height:440px; background:#3b1f6e;
     top:-140px; left:-120px;
   }
   .orb:nth-child(2){
-    width:380px; height:380px; background:#a888ff;
+    width:380px; height:380px; background:#1e3a8a;
     bottom:-140px; right:-100px; animation-delay:-8s;
   }
   .orb:nth-child(3){
-    width:300px; height:300px; background:#e0c8ff;
+    width:300px; height:300px; background:#4c1d95;
     top:38%; left:58%; animation-delay:-16s;
   }
   @keyframes orbDrift{
@@ -66,7 +104,7 @@
     position:absolute;
     width:4px; height:4px; border-radius:50%;
     background:#fff;
-    box-shadow:0 0 10px 2px rgba(160,120,255,.85);
+    box-shadow:0 0 10px 2px rgba(96,165,250,.85);
     animation:twinkle 3.6s ease-in-out infinite;
   }
   @keyframes twinkle{
@@ -80,12 +118,12 @@
   .scroll-progress{
     position:fixed; top:0; left:0;
     height:3px; width:0%;
-    background:linear-gradient(90deg,var(--accent),var(--soft-blue),var(--accent));
+    background:linear-gradient(90deg,#3b82f6,#7c5cff,#3b82f6);
     background-size:200% 100%;
     animation:gradientScroll 3s linear infinite;
     z-index:500;
     transition:width .12s ease-out;
-    box-shadow:0 0 12px rgba(124,92,255,.7);
+    box-shadow:0 0 12px rgba(59,130,246,.8);
   }
   @keyframes gradientScroll{
     0%{ background-position:0% 50%; }
@@ -106,7 +144,7 @@
   .hearts{position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1;}
   .hearts span{
     position:absolute; bottom:-40px;
-    font-size:16px; color:rgba(124,92,255,.35);
+    font-size:16px; color:rgba(96,165,250,.35);
     animation:floatUp linear infinite;
   }
   @keyframes floatUp{
@@ -128,10 +166,10 @@
   .lock-card{
     position:relative; z-index:2;
     width:100%; max-width:400px;
-    background:rgba(255,255,255,.88);
+    background:rgba(18,10,35,.88);
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
-    border:1px solid rgba(124,92,255,.20);
+    border:1px solid rgba(80,160,255,.35);
     border-radius:28px;
     padding:40px 28px 32px;
     text-align:center;
@@ -144,29 +182,30 @@
   }
   @keyframes glowPulse{
     0%,100%{
-      box-shadow:0 24px 60px -20px rgba(74,53,184,.40),
-                 0 0 0 0 rgba(124,92,255,.35);
+      box-shadow:0 24px 60px -20px rgba(59,130,246,.4),
+                 0 0 0 0 rgba(96,165,250,.35);
     }
     50%{
-      box-shadow:0 24px 60px -20px rgba(74,53,184,.40),
-                 0 0 0 20px rgba(124,92,255,0);
+      box-shadow:0 24px 60px -20px rgba(59,130,246,.4),
+                 0 0 0 20px rgba(96,165,250,0);
     }
   }
   .lock-icon{
     width:64px; height:64px; margin:0 auto 18px;
     display:grid; place-items:center;
     font-size:26px; border-radius:50%;
-    background:linear-gradient(135deg,#e0d0ff,#c8a8ff);
+    background:linear-gradient(135deg,#3b82f6,#7c5cff);
     animation:lockPulse 2.6s ease-in-out infinite;
   }
   @keyframes lockPulse{
-    0%,100%{ transform:scale(1);   box-shadow:0 8px 20px -6px rgba(124,92,255,.55); }
-    50%    { transform:scale(1.08); box-shadow:0 14px 30px -6px rgba(124,92,255,.9); }
+    0%,100%{ transform:scale(1);   box-shadow:0 8px 20px -6px rgba(59,130,246,.55); }
+    50%    { transform:scale(1.08); box-shadow:0 14px 30px -6px rgba(96,165,250,.9); }
   }
   .lock-card h1{
     font-family:'Cormorant Garamond',serif;
     font-size:30px; font-weight:600; letter-spacing:.3px;
     margin-bottom:6px;
+    color:var(--ink);
   }
   .lock-card .sub{font-size:14px; color:var(--muted); margin-bottom:26px;}
 
@@ -175,22 +214,22 @@
     width:100%; padding:14px 18px;
     font:inherit; font-size:16px;
     text-align:center; letter-spacing:2px;
-    border-radius:14px; border:1.5px solid #d7d2f0;
-    background:#fdfdff; color:var(--ink); outline:none;
+    border-radius:14px; border:1.5px solid rgba(80,160,255,.3);
+    background:rgba(10,5,20,.85); color:var(--ink); outline:none;
     transition:border-color .25s, box-shadow .25s;
   }
-  #pw::placeholder{letter-spacing:4px; color:#bfb8dd;}
-  #pw:focus{border-color:var(--accent); box-shadow:0 0 0 4px rgba(124,92,255,.15);}
+  #pw::placeholder{letter-spacing:4px; color:#8a7ab0;}
+  #pw:focus{border-color:var(--soft-blue); box-shadow:0 0 0 4px rgba(96,165,250,.15);}
   #lockForm button{
     padding:14px; font:inherit; font-size:15px; font-weight:600; letter-spacing:.5px;
     color:#fff; border:none; border-radius:14px; cursor:pointer;
-    background:linear-gradient(135deg,#7c5cff,#4a35b8);
+    background:linear-gradient(135deg,#3b82f6,#7c5cff);
     background-size:200% 200%;
-    box-shadow:0 10px 22px -8px rgba(74,53,184,.75);
+    box-shadow:0 10px 22px -8px rgba(59,130,246,.75);
     transition:transform .15s, box-shadow .25s, background-position .6s;
   }
   #lockForm button:hover{
-    box-shadow:0 14px 28px -8px rgba(74,53,184,.85);
+    box-shadow:0 14px 28px -8px rgba(59,130,246,.85);
     background-position:100% 50%;
   }
   #lockForm button:active{transform:translateY(1px) scale(.99);}
@@ -204,7 +243,7 @@
   }
   .shake{animation:shake .45s ease;}
 
-  .error{margin-top:10px; font-size:13px; font-weight:600; color:#5b3fd6; min-height:18px;}
+  .error{margin-top:10px; font-size:13px; font-weight:600; color:#ff9a9a; min-height:18px;}
   .hint{margin-top:14px; font-size:12.5px; color:var(--muted); line-height:1.5;}
 
   /* ============================================================
@@ -226,15 +265,15 @@
   }
   .eyebrow{
     font-size:12px; letter-spacing:4px; text-transform:uppercase;
-    color:var(--accent); font-weight:600; margin-bottom:16px;
+    color:var(--soft-blue); font-weight:600; margin-bottom:16px;
   }
   .hero h1{
     font-family:'Cormorant Garamond',serif;
     font-size:clamp(40px,11vw,68px);
     font-weight:600; line-height:1.05; margin-bottom:24px;
     background:linear-gradient(90deg,
-                var(--ink) 0%, var(--deep) 25%,
-                var(--accent) 50%, var(--deep) 75%, var(--ink) 100%);
+                #e8e0ff 0%, #c8a8ff 25%,
+                #60a5fa 50%, #c8a8ff 75%, #e8e0ff 100%);
     background-size:200% auto;
     -webkit-background-clip:text;
     background-clip:text;
@@ -243,7 +282,7 @@
   }
   .hero h1 em{
     font-style:italic;
-    background:linear-gradient(135deg,var(--accent),var(--soft-blue));
+    background:linear-gradient(135deg,#60a5fa,#c8a8ff);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
@@ -274,11 +313,11 @@
     padding:22px 34px;
     border-radius:26px;
     background:linear-gradient(135deg,
-                rgba(255,255,255,.95),
-                rgba(230,220,255,.92));
-    border:1px solid rgba(124,92,255,.28);
-    box-shadow:0 22px 50px -22px rgba(74,53,184,.9),
-               inset 0 0 30px rgba(200,180,255,.4);
+                rgba(20,10,40,.9),
+                rgba(30,15,60,.9));
+    border:1px solid rgba(80,160,255,.35);
+    box-shadow:0 22px 50px -22px rgba(59,130,246,.7),
+               inset 0 0 30px rgba(80,120,255,.2);
     position:relative;
     overflow:hidden;
   }
@@ -287,9 +326,9 @@
     position:absolute; inset:-2px;
     background:conic-gradient(from 0deg,
                 transparent 0deg,
-                rgba(124,92,255,.55) 90deg,
+                rgba(59,130,246,.6) 90deg,
                 transparent 180deg,
-                rgba(184,168,255,.55) 270deg,
+                rgba(124,92,255,.6) 270deg,
                 transparent 360deg);
     animation:rotateGlow 6s linear infinite;
     z-index:-1;
@@ -300,7 +339,7 @@
   }
   .monthsary-big .label{
     font-size:11px; letter-spacing:4px; text-transform:uppercase;
-    color:var(--deep); font-weight:700;
+    color:#b8d4ff; font-weight:700;
     margin-bottom:6px;
     opacity:.8;
   }
@@ -308,8 +347,7 @@
     font-family:'Cormorant Garamond',serif;
     font-size:clamp(38px,9vw,58px);
     font-weight:600; line-height:1;
-    color:var(--deep);
-    background:linear-gradient(135deg,#7c5cff,#4a35b8,#a888ff);
+    background:linear-gradient(135deg,#60a5fa,#c8a8ff,#7c5cff);
     background-size:200% auto;
     -webkit-background-clip:text;
     background-clip:text;
@@ -335,30 +373,30 @@
     min-width:76px;
     padding:12px 14px;
     border-radius:18px;
-    background:rgba(255,255,255,.85);
-    border:1px solid rgba(124,92,255,.22);
-    box-shadow:0 10px 26px -18px rgba(74,53,184,.8);
+    background:rgba(20,10,40,.8);
+    border:1px solid rgba(80,160,255,.25);
+    box-shadow:0 10px 26px -18px rgba(59,130,246,.8);
     display:flex; flex-direction:column; align-items:center;
     transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   }
   .stat:hover{
     transform:translateY(-6px) scale(1.05);
-    box-shadow:0 22px 38px -18px rgba(74,53,184,.9);
-    border-color:rgba(124,92,255,.45);
+    box-shadow:0 22px 38px -18px rgba(59,130,246,.9);
+    border-color:rgba(96,165,250,.5);
   }
   .stat .num{
     font-family:'Cormorant Garamond',serif;
     font-size:28px; font-weight:600; line-height:1;
-    color:var(--deep);
+    color:var(--ink);
     font-variant-numeric:tabular-nums;
     min-width:2ch;
     transition:transform .25s ease, color .25s ease;
   }
   .stat .num.tick{ animation:tickPulse .35s ease; }
   @keyframes tickPulse{
-    0%  { transform:scale(1);   color:var(--deep); }
-    50% { transform:scale(1.18); color:var(--accent); }
-    100%{ transform:scale(1);   color:var(--deep); }
+    0%  { transform:scale(1);   color:var(--ink); }
+    50% { transform:scale(1.18); color:var(--soft-blue); }
+    100%{ transform:scale(1);   color:var(--ink); }
   }
   .stat .lbl{
     margin-top:4px;
@@ -384,6 +422,7 @@
     font-size:clamp(26px,6vw,34px);
     font-weight:600; margin-bottom:22px; text-align:center;
     position:relative; padding-bottom:14px;
+    color:var(--ink);
   }
   .block h2::after{
     content:"";
@@ -392,7 +431,7 @@
     transform:translateX(-50%);
     width:60px; height:3px;
     border-radius:3px;
-    background:linear-gradient(90deg,var(--accent),var(--soft-blue));
+    background:linear-gradient(90deg,#3b82f6,#7c5cff);
     transition:width .55s cubic-bezier(.22,.9,.4,1);
   }
   .block:hover h2::after{ width:130px; }
@@ -400,12 +439,13 @@
   /* ----- letter ----- */
   .letter{
     position:relative;
-    background:rgba(255,255,255,.85);
-    border:1px solid rgba(124,92,255,.16);
+    background:rgba(20,10,40,.8);
+    border:1px solid rgba(80,160,255,.25);
     border-radius:24px;
     padding:38px 26px 32px;
     font-size:16.5px; line-height:1.85;
-    box-shadow:0 18px 44px -26px rgba(74,53,184,.55);
+    color:var(--ink);
+    box-shadow:0 18px 44px -26px rgba(59,130,246,.55);
     transition:transform .45s ease, box-shadow .45s ease, border-color .45s ease;
   }
   .letter::before{
@@ -413,8 +453,8 @@
     position:absolute;
     top:-14px; left:24px;
     font-size:26px;
-    color:var(--accent);
-    filter:drop-shadow(0 4px 8px rgba(124,92,255,.5));
+    color:var(--soft-blue);
+    filter:drop-shadow(0 4px 8px rgba(59,130,246,.5));
     animation:heartBob 2.6s ease-in-out infinite;
   }
   @keyframes heartBob{
@@ -423,8 +463,8 @@
   }
   .letter:hover{
     transform:translateY(-5px);
-    box-shadow:0 30px 65px -30px rgba(74,53,184,.8);
-    border-color:rgba(124,92,255,.35);
+    box-shadow:0 30px 65px -30px rgba(59,130,246,.8);
+    border-color:rgba(96,165,250,.4);
   }
   .letter p + p{margin-top:16px;}
   .letter .sign{
@@ -441,9 +481,9 @@
   }
   figure{
     position:relative;
-    background:#fff; border-radius:20px; overflow:hidden;
-    border:1px solid rgba(124,92,255,.14);
-    box-shadow:0 14px 34px -22px rgba(74,53,184,.65);
+    background:rgba(20,10,40,.85); border-radius:20px; overflow:hidden;
+    border:1px solid rgba(80,160,255,.25);
+    box-shadow:0 14px 34px -22px rgba(59,130,246,.65);
     transition:transform .5s cubic-bezier(.22,.9,.4,1),
                box-shadow .5s ease, border-color .5s ease;
   }
@@ -455,7 +495,7 @@
     background:linear-gradient(115deg,
               transparent 0%,
               rgba(255,255,255,0) 40%,
-              rgba(255,255,255,.75) 50%,
+              rgba(255,255,255,.2) 50%,
               rgba(255,255,255,0) 60%,
               transparent 100%);
     pointer-events:none;
@@ -465,12 +505,12 @@
   figure:hover::after{ left:130%; }
   figure:hover{
     transform:translateY(-8px) scale(1.02);
-    box-shadow:0 26px 55px -22px rgba(74,53,184,.9);
-    border-color:rgba(124,92,255,.4);
+    box-shadow:0 26px 55px -22px rgba(59,130,246,.9);
+    border-color:rgba(96,165,250,.5);
   }
   figure img{
     width:100%; aspect-ratio:4/5; object-fit:cover;
-    display:block; background:#eceaff;
+    display:block; background:#1a0b2e;
     transition:transform .8s cubic-bezier(.22,.9,.4,1);
   }
   figure:hover img{ transform:scale(1.08); }
@@ -479,29 +519,30 @@
     color:var(--muted); line-height:1.5;
     transition:color .35s ease;
   }
-  figure:hover figcaption{ color:var(--deep); }
+  figure:hover figcaption{ color:var(--soft-blue); }
 
   /* ----- reasons ----- */
   .reasons{display:grid; gap:12px;}
   .reasons li{
     list-style:none; display:flex; gap:12px;
-    background:rgba(255,255,255,.82);
-    border:1px solid rgba(124,92,255,.16);
+    background:rgba(20,10,40,.8);
+    border:1px solid rgba(80,160,255,.25);
     border-radius:16px; padding:16px 18px;
     font-size:15.5px; line-height:1.6;
+    color:var(--ink);
     transition:transform .35s cubic-bezier(.22,.9,.4,1),
                box-shadow .35s ease, border-color .35s ease,
                background .35s ease;
   }
   .reasons li::before{
-    content:"♡"; color:var(--accent); font-size:18px; line-height:1.3;
+    content:"♡"; color:var(--soft-blue); font-size:18px; line-height:1.3;
     transition:transform .35s ease;
   }
   .reasons li:hover{
     transform:translateX(10px);
-    box-shadow:0 16px 32px -18px rgba(74,53,184,.8);
-    border-color:rgba(124,92,255,.4);
-    background:rgba(255,255,255,.95);
+    box-shadow:0 16px 32px -18px rgba(59,130,246,.8);
+    border-color:rgba(96,165,250,.45);
+    background:rgba(30,15,60,.95);
   }
   .reasons li:hover::before{ transform:scale(1.35) rotate(-8deg); }
 
@@ -509,7 +550,7 @@
     text-align:center; margin-top:80px; font-size:13px; color:var(--muted);
   }
   .footer .beat{
-    display:inline-block; color:var(--accent);
+    display:inline-block; color:var(--soft-blue);
     animation:heartBeat 1.4s ease-in-out infinite;
   }
   @keyframes heartBeat{
@@ -547,12 +588,12 @@
     }
   }
 
-  /* ----- click ripple on buttons ----- */
+  /* ----- click ripple ----- */
   .ripple{
     position:fixed;
     width:14px; height:14px;
     border-radius:50%;
-    background:radial-gradient(circle, rgba(124,92,255,.55), transparent 70%);
+    background:radial-gradient(circle, rgba(96,165,250,.55), transparent 70%);
     transform:translate(-50%,-50%) scale(0);
     pointer-events:none;
     z-index:9998;
@@ -568,6 +609,10 @@
 </style>
 </head>
 <body>
+
+<!-- 🔵 BLUE SIDE BORDERS -->
+<div class="side-border left" aria-hidden="true"></div>
+<div class="side-border right" aria-hidden="true"></div>
 
 <!-- ============ BACKGROUND DECORATION ============ -->
 <div class="bg-orbs" aria-hidden="true">
@@ -607,14 +652,14 @@
     <p class="eyebrow">Happy Monthsary</p>
     <h1>To my <em>favorite</em><br>person</h1>
 
-    <!-- 🎉 Monthsary badge (years + months) -->
+    <!-- 🎉 Monthsary badge -->
     <div class="monthsary-big">
       <span class="label">We've been together for</span>
       <span class="value" id="monthsaryValue">0 months</span>
       <span class="subline" id="monthsarySub"></span>
     </div>
 
-    <!-- ⏱ Precise live counter (days / hours / mins / secs) -->
+    <!-- ⏱ Live counter -->
     <p class="counter-label">— and counting every second —</p>
     <div class="counter">
       <div class="stat"><span class="num" id="cDays">0</span><span class="lbl">days</span></div>
@@ -655,19 +700,10 @@
    ============================================================ */
 
 const CONFIG = {
-  // The password she must type (not case-sensitive)
   password: "092326",
-
-  // The day you became official — format: YYYY-MM-DD
   startDate: "2026-09-23",
-
-  // The hint shown under the password box
   hint: "Hint: the day we became us 🗓️"
 };
-
-/* ============================================================
-   📸  HOW TO ADD YOUR PHOTOS OF THE TWO OF YOU
-   ============================================================ */
 
 const PHOTOS = [
   { src: "photos/1.jpg", caption: "I promise to stay by your side, even when life gets difficult, because I don't want to love you only on your happiest days. ❤️" },
@@ -684,7 +720,6 @@ const PHOTOS = [
   { src: "photos/12.jpg", caption: "Every moment with you becomes a beautiful memory I want to keep forever. ❤️" },
 ];
 
-// Add as many reasons as you want.
 const REASONS = [
   "I love being hugged by you.",
   "I love being by your side.",
@@ -719,7 +754,7 @@ const REASONS = [
 ];
 
 /* ============================================================
-   ⚙️  Everything below works automatically — no need to edit
+   ⚙️  Everything below works automatically
    ============================================================ */
 
 const $ = (id) => document.getElementById(id);
@@ -730,48 +765,21 @@ const pwInput = $("pw");
 
 let isUnlocked = false;
 
-/* --- hint --- */
 document.querySelector(".hint").innerHTML = CONFIG.hint;
 
-/* --- start date --- */
 const start = new Date(CONFIG.startDate + "T00:00:00");
 
 function pad(n, size){
   return String(n).padStart(size, "0");
 }
 
-/* ============================================================
-   🎉 MONTHSARY CALCULATION (years + months)
-   ============================================================
-   Counts full calendar months between start date and now.
-   Examples:
-     - 20 days  → "0 months"
-     - 1 month  → "1 month"
-     - 8 months → "8 months"
-     - 14 months→ "1 year, 2 months"
-   ============================================================ */
 function getMonthsary(){
   const now = new Date();
-
   let years  = now.getFullYear() - start.getFullYear();
   let months = now.getMonth()    - start.getMonth();
-
-  // If we haven't reached the day-of-month yet this month, subtract one month
-  if (now.getDate() < start.getDate()){
-    months--;
-  }
-
-  // Normalize negative months
-  if (months < 0){
-    years--;
-    months += 12;
-  }
-
-  // Guard: if now is before start, everything is 0
-  if (now < start){
-    years = 0; months = 0;
-  }
-
+  if (now.getDate() < start.getDate()) months--;
+  if (months < 0){ years--; months += 12; }
+  if (now < start){ years = 0; months = 0; }
   return { years, months };
 }
 
@@ -801,9 +809,6 @@ function renderMonthsary(){
   subEl.textContent   = subText;
 }
 
-/* ============================================================
-   ⏱ PRECISE LIVE COUNTER (days / hours / mins / secs)
-   ============================================================ */
 function renderCounter(){
   const now = new Date();
   const diff = Math.max(0, now - start);
@@ -825,27 +830,25 @@ function renderCounter(){
   secEl.classList.add("tick");
 }
 
-/* --- placeholder image (inline SVG data URI) --- */
 function placeholderImage(text){
   const safe = String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="400" height="500">
       <defs>
         <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#f3e8ff"/>
-          <stop offset="100%" stop-color="#e0c8ff"/>
+          <stop offset="0%" stop-color="#1a0b2e"/>
+          <stop offset="100%" stop-color="#2d1b4e"/>
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#g)"/>
-      <text x="50%" y="46%" font-family="sans-serif" font-size="20" fill="#4a35b8"
+      <text x="50%" y="46%" font-family="sans-serif" font-size="20" fill="#7fb3ff"
             text-anchor="middle" dominant-baseline="middle">📷</text>
-      <text x="50%" y="55%" font-family="sans-serif" font-size="13" fill="#7a7aa0"
+      <text x="50%" y="55%" font-family="sans-serif" font-size="13" fill="#b8a8d8"
             text-anchor="middle" dominant-baseline="middle">${safe}</text>
     </svg>`;
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
-/* --- photo gallery --- */
 function renderGallery(){
   const g = $("gallery");
   g.innerHTML = "";
@@ -872,7 +875,6 @@ function renderGallery(){
   });
 }
 
-/* --- reasons list --- */
 function renderReasons(){
   const ul = $("reasons");
   ul.innerHTML = "";
@@ -885,9 +887,6 @@ function renderReasons(){
   });
 }
 
-/* ============================================================
-   ✨ SPARKLES
-   ============================================================ */
 function spawnSparkles(){
   const container = $("sparkles");
   const total = 22;
@@ -902,9 +901,6 @@ function spawnSparkles(){
   }
 }
 
-/* ============================================================
-   🎬 SCROLL REVEAL
-   ============================================================ */
 function setupReveals(){
   const els = document.querySelectorAll('.block h2, .letter, figure, .reasons li, .footer');
   const io = new IntersectionObserver((entries) => {
@@ -922,9 +918,6 @@ function setupReveals(){
   });
 }
 
-/* ============================================================
-   📊 SCROLL PROGRESS
-   ============================================================ */
 function updateScrollProgress(){
   const h = document.documentElement;
   const scrollable = h.scrollHeight - h.clientHeight;
@@ -933,9 +926,6 @@ function updateScrollProgress(){
 }
 window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
-/* ============================================================
-   💖 HEART BURST
-   ============================================================ */
 function spawnHeartBurst(){
   const emojis = ['❤️','💕','💖','💗','💜','💙','🩷','💞'];
   const total = 42;
@@ -998,9 +988,6 @@ document.addEventListener("click", (e) => {
   miniBurst(e.clientX, e.clientY);
 });
 
-/* ============================================================
-   🔓 UNLOCK
-   ============================================================ */
 $("lockForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const attempt = pwInput.value.trim().toLowerCase();
@@ -1033,11 +1020,37 @@ function unlock(){
   setTimeout(() => { setupReveals(); updateScrollProgress(); }, 900);
 }
 
+/* 🔒 Disable zoom */
+document.addEventListener("touchmove", (e) => {
+  if (e.touches && e.touches.length > 1) e.preventDefault();
+}, { passive: false });
+
+["gesturestart", "gesturechange", "gestureend"].forEach(evt => {
+  document.addEventListener(evt, (e) => e.preventDefault(), { passive: false });
+});
+
+let lastTouchEnd = 0;
+document.addEventListener("touchend", (e) => {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, { passive: false });
+
+document.addEventListener("wheel", (e) => {
+  if (e.ctrlKey) e.preventDefault();
+}, { passive: false });
+
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && ["+", "-", "=", "0"].includes(e.key)){
+    e.preventDefault();
+  }
+}, { passive: false });
+
 /* --- init --- */
 document.body.style.overflow = "hidden";
 spawnSparkles();
-renderMonthsary();               // 🎉 months + years
-renderCounter();                 // ⏱ days/hours/mins/secs
+renderMonthsary();
+renderCounter();
 setInterval(() => {
   renderMonthsary();
   renderCounter();
